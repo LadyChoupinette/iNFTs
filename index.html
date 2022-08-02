@@ -94,8 +94,8 @@ style="position: absolute;
       weight:1
     },
   ]
-  if(window?.context?.nftData){
-    msg = window?.context?.nftData?.metadata.properties.messages;
+  if(metadata.properties?.messages){
+    msg = metadata.properties.messages;
   }
   function getRandomEvent(){
 
@@ -244,6 +244,9 @@ style="position: absolute;
 
 </script>
 <script>
+  console.log("v1")
+  console.log(window.context)
+  const metadata = window?.context?.nftData?.metadata;
   document.getElementById("_Image2").style.transformOrigin="320px 640px"
 
     window.document.addEventListener("click", getRandomEvent)
