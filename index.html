@@ -4,22 +4,19 @@
     <meta charset="UTF-8">
     <title>Hello Holder !</title>
     <style>
-        .on{
-            display: flex;
-        }
-        .off{
-            display: none;
-        }
-
+        
     </style>
     <link href='https://fonts.googleapis.com/css?family=Gluten' rel='stylesheet'>
 
 </head>
 <body style="margin: 0 0 0 0;">
+<script>
+  const metadata = window?.context?.nftData?.metadata;
+</script>
 <!--    <svg height="100%" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;position: absolute" viewBox="0 0 160 160" width="100%"-->
 <!--         xml:space="preserve" xmlns="http://www.w3.org/2000/svg">-->
 <!--</svg>-->
-    <svg height="100%" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" viewBox="0 0 720 720" width="100%"
+    <svg height="100%" id="svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" viewBox="0 0 720 720" width="100%"
          xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
     <g>
         <g>
@@ -62,7 +59,13 @@
 <!--<span class="off" ></span>-->
         </text>
 </svg>
+<span id="heureTZ"></span>
 <script>
+  document.getElementById("svg").style="display:none;";
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  document.getElementById("heureTZ").innerHTML=date.getHours()+":"+date.getMinutes()
+
   msg = [
     {
       text:"Hello Kate, how Are you ?",
@@ -81,7 +84,7 @@
       weight:1
     },
   ]
-  if(metadata.properties?.messages){
+  if(metadata?.properties?.messages){
     msg = metadata.properties.messages;
   }
   function getRandomEvent(){
@@ -233,7 +236,6 @@
 <script>
   console.log("v1")
   console.log(window.context)
-  const metadata = window?.context?.nftData?.metadata;
   document.getElementById("_Image2").style.transformOrigin="345px 665px"
 
     window.document.addEventListener("click", getRandomEvent)
