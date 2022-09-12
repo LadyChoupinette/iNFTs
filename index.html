@@ -7,7 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Gluten" rel="stylesheet" />
         <script>
             // Init
-            console.log("Init v0.2.0")
+            console.log("Init v0.2.1")
 
             // Recuperation metadata / setup test data
             const nftData = window?.context?.nftData
@@ -32,27 +32,39 @@
                           external_uri: "N/A",
                           image: "https://u7lbdbhb2htyu4xlktcrsfebckyyjjowvdoiugv3uwjb2v5m.arweave.net/p9YRhOHR54py_61TFGRSBEr_GEpdao3I_oau6WSHVes",
                           animation_url: "https://infts.vercel.app/",
+                          dna:5486324,
                           properties: {
-                              msg: [
+                              totalWeight:50,
+                              events: [
                                   {
-                                      text: "Hello Kate, how Are you ?",
-                                      weight: 1,
+                                      id:1,
+                                      msg: "Hello Kate, how Are you ?",
+                                      animationIds:[1,3],
+                                      weight: 10,
                                   },
                                   {
-                                      text: "I'm bored...",
-                                      weight: 1,
+                                      id:2,
+                                      msg: "I'm bored...",
+                                      animationIds:[5,7],
+                                      weight: 10,
                                   },
                                   {
-                                      text: "What a cool day !",
-                                      weight: 1,
+                                      id:3,
+                                      msg: "What a cool day !",
+                                      animationIds:[2,4],
+                                      weight: 10,
                                   },
                                   {
-                                      text: "I wish i were a unicorn.",
-                                      weight: 1,
+                                      id:4,
+                                      msg: "I wish i were a unicorn.",
+                                      animationIds:[6,8],
+                                      weight: 10,
                                   },
                                   {
-                                      text: "Poodidoowaaah !",
-                                      weight: 1,
+                                      id:5,
+                                      msg: "Poodidoowaaah !",
+                                      animationIds:[0],
+                                      weight: 10,
                                   },
                               ],
                           },
@@ -68,161 +80,194 @@
             console.log("Data set.")
             console.log("window.context = %s", window.context)
             console.log("NFTData = %s", nftData)
+
+            // Instancing hot specific Event
+            console.log("Instancing hot data")
+            const hotEvent = [
+                {
+                    id: 1,
+                    msg: "placeholder1",
+                    animationIds:[1,2,3]
+                },
+                {
+                    id: 2,
+                    msg: "placeholder2",
+                    animationIds:[2,3,4]
+                },
+            ]
+            console.log("Hot Events = %s", hotEvent )
         </script>
         <script>
             //Utils
 
-                function getRan(number) {
-                    return Math.trunc(Math.random() * number)
+            function getRan(number) {
+                return Math.trunc(Math.random() * number)
+            }
+            function pickInList(list){
+                return list[getRan(list.length)]
+            }
+
+            //Animations
+
+            function animHz(ms) {
+                console.log("gauche, droite, gauche, droite")
+
+                let pny = document.getElementById("pny")
+                let pos = 0
+                let inter = setInterval(mvt, ms)
+                let i = 0
+                function mvt() {
+                    if (i === 7) {
+                        pos = pos + 10
+                        pny.style.x = pos
+                        clearInterval(inter)
+                    } else if (i === 0) {
+                        pos = pos + 10
+                        pny.style.x = pos
+                    } else if (pos === 10) {
+                        pos = pos - 10
+                        pny.style.x = pos
+                    } else if (pos === -10) {
+                        pos = pos + 10
+                        pny.style.x = pos
+                    } else if (i % 4 === 0) {
+                        pos = pos + 10
+                        pny.style.x = pos
+                    } else {
+                        pos = pos - 10
+                        pny.style.x = pos
+                    }
+                    i++
                 }
+            }
+            function animVt(ms) {
+                console.log("haut, bas, haut, bas")
 
-            //Bizz Utils
-
-                function pickMessage (number) {
-
+                let pny = document.getElementById("pny")
+                let pos = 0
+                let inter = setInterval(mvt, ms)
+                let i = 0
+                function mvt() {
+                    if (i === 7) {
+                        pos = pos + 10
+                        pny.style.y = pos
+                        clearInterval(inter)
+                    } else if (i === 0) {
+                        pos = pos + 10
+                        pny.style.y = pos
+                    } else if (pos === 10) {
+                        pos = pos - 10
+                        pny.style.y = pos
+                    } else if (pos === -10) {
+                        pos = pos + 10
+                        pny.style.y = pos
+                    } else if (i % 4 === 0) {
+                        pos = pos + 10
+                        pny.style.y = pos
+                    } else {
+                        pos = pos - 10
+                        pny.style.y = pos
+                    }
+                    i++
                 }
-
-                let span = document.getElementById("span")
-
-                let ranTxt = getRan(5)
-
-                for(let i=0;i<msg.length;i++){
-                if(ranTxt === i){
-                span.innerHTML=msg[ranTxt].text
             }
-
-            }
-
-                let ran = Math.trunc(Math.random()*6)
-                switch (ran) {
-                case 0:
-                hz(200)
-                break
-                case 1:
-                hz(90)
-                break
-                case 2:
-                vt(200)
-                break
-                case 3:
-                vt(90)
-                break
-                case 4:
-                rotate(10)
-                break
-                case 5:
-                rotate(5)
-                break
-                default:
-                ran=-1
-                r=-1
-
-            }
-            }
-
-                function hz(ms) {
-                console.log("gauche, droite, gauche, droite");
-
-                let pny = document.getElementById('pny')
-                let pos = 0;
-                let inter = setInterval(mvt, ms);
-                let i=0;
-                function mvt () {
-                if(i===7){
-                pos = pos + 10;
-                pny.style.x = pos;
-                clearInterval(inter)
-            } else if (i === 0){
-                pos = pos + 10;
-                pny.style.x = pos;
-            } else if (pos===10) {
-                pos = pos - 10;
-                pny.style.x = pos;
-            } else if (pos===-10) {
-                pos = pos + 10;
-                pny.style.x = pos;
-            } else if(i%4===0){
-                pos = pos + 10;
-                pny.style.x = pos;
-            } else {
-                pos = pos - 10;
-                pny.style.x = pos;
-            }
-                i++
-            }
-            }
-
-                // vert
-
-                function vt(ms) {
-                console.log("haut, bas, haut, bas");
-
-                let pny = document.getElementById('pny')
-                let pos = 0;
-                let inter = setInterval(mvt, ms);
-                let i=0;
-                function mvt () {
-                if(i===7){
-                pos = pos + 10;
-                pny.style.y = pos;
-                clearInterval(inter)
-            } else if (i === 0){
-                pos = pos + 10;
-                pny.style.y = pos;
-            } else if (pos===10) {
-                pos = pos - 10;
-                pny.style.y = pos;
-            } else if (pos===-10) {
-                pos = pos + 10;
-                pny.style.y = pos;
-            } else if(i%4===0){
-                pos = pos + 10;
-                pny.style.y = pos;
-            } else {
-                pos = pos - 10;
-                pny.style.y = pos;
-            }
-                i++
-            }
-            }
-
-                function rotate(ms) {
-
+            function rotate(ms) {
                 console.log("click")
                 // let pny = document.getElementById('pny')
                 // pny.style.transform = "rotate(15,640,320)"
                 // console.log(pny)
 
-                let i=0;
-                let j=0;
-                let k=0;
-                let deg=7;
+                let i = 0
+                let j = 0
+                let k = 0
+                let deg = 7
 
-                let dod = setInterval(
-                doodle
-                ,ms
-                )
+                let dod = setInterval(doodle, ms)
 
-                function doodle () {          // deg =
-                if(k===3 && i===0){
-                clearInterval(dod)
+                function doodle() {
+                    // deg =
+                    if (k === 3 && i === 0) {
+                        clearInterval(dod)
+                    }
+                    if (i === deg) {
+                        if (j === -deg) {
+                            k++
+                            i = -deg
+                            j = deg
+                        } else {
+                            console.log(j)
+                            document.getElementById("_Image2").style.transform = "rotate(" + j + "deg)"
+                            j--
+                        }
+                    } else {
+                        console.log(i)
+                        document.getElementById("_Image2").style.transform = "rotate(" + i + "deg)"
+                        i++
+                    }
+                }
             }
-                if (i===deg){
-                if(j===-deg){
-                k++;
-                i=-deg
-                j=deg
-            } else {
-                console.log(j)
-                document.getElementById("_Image2").style.transform="rotate("+j+"deg)";
-                j--
+            function wobble(ms) {
             }
-            } else {
-                console.log(i)
-                document.getElementById("_Image2").style.transform = "rotate(" + i + "deg)";
-                i++
+
+            //Bizz Utils
+
+            function pickHotEvent () {
+                return undefined
             }
+            function pickColdEvent() {
+                console.log("Getting cold event")
+
+                let dna = nftData.metadata.dna
+                console.log("dna = %d",dna)
+                const maxDayTimestamp = 30000*3600*24 // 20/02/2052
+                let date = Math.trunc(Date.now()/1000)
+                console.log("date = %d",date)
+                let hash = dna*maxDayTimestamp+date // Generates a number unique for each combination dna+day
+                console.log("hash = %d",hash)
+
+                let totalWeight = nftData.metadata.properties.totalWeight
+                console.log("totalWeight = %d",totalWeight)
+                let listColdEvents = nftData.metadata.properties.events
+                let pickedColdEvent = listColdEvents[hash%totalWeight]
+                console.log("pickedColdEvent =",pickedColdEvent)
+
+                return pickedColdEvent
             }
+            function setMessage(message){
+                document.getElementById("textField").setAttributes("innerHTML",message)
+            }
+            function playAnimation(id){
+                switch (id){
+                    case 0:
+                        break;
+                    case 1:
+                        animHz(200)
+                        break;
+                    case 2:
+                        animHz(75)
+                        break;
+                    case 3:
+                        animVt(200)
+                        break;
+                    case 4:
+                        animVt(75)
+                        break;
+                    case 5:
+                        wobble(200)
+                        break;
+                    case 6:
+                        wobble(75)
+                        break;
+                    case 7:
+                        rotate(200)
+                        break;
+                    case 8:
+                        rotate(75)
+                        break;
+                    default:
+                        console.log("No matching animations")
+                        break;
+                }
             }
 
         </script>
@@ -271,12 +316,27 @@
                 "
                 x="125"
                 y="662"
-            >
-            </text>
+            ></text>
         </svg>
         <script>
+
+            const launchClickEvent = function(){
+                let hotEvent = pickHotEvent()
+                let coldEvent;
+
+                if(hotEvent){
+                    setMessage(hotEvent.msg)
+                    playAnimation(pickInList(hotEvent.animationIds))
+
+                } else {
+                    coldEvent = pickColdEvent()
+                    setMessage(coldEvent.msg)
+                    playAnimation(pickInList(coldEvent.animationIds))
+                }
+            }
+
             // Main
-            let main = function(){
+            const main = function () {
                 // Setting Event Listeners
                 window.document.addEventListener("click", launchClickEvent)
             }
@@ -284,3 +344,6 @@
         </script>
     </body>
 </html>
+
+
+<iframe allowfullscreen frameborder="0" height="360" mozallowfullscreen src="https://www.loom.com/embed/a3c9f224ee954143a7d5dc60816da4eb" webkitallowfullscreen width="640"></iframe>
