@@ -63,6 +63,11 @@
         </text>
 </svg>
 <script>
+
+    console.log("v3")
+    console.log(window.context)
+    const metadata = window?.context?.nftData?.metadata;
+
   msg = [
     {
       text:"Hello Kate, how Are you ?",
@@ -229,11 +234,7 @@
         }
     }
 
-</script>
-<script>
-  console.log("v2.1")
-  console.log(window.context)
-  const metadata = window?.context?.nftData?.metadata;
+
   document.getElementById("_Image2").style.transformOrigin="345px 665px"
 
     window.document.addEventListener("click", getRandomEvent)
